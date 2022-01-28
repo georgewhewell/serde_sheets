@@ -175,11 +175,12 @@ pub async fn read_all<T: DeserializeOwned>(
         .await?;
 
     let rows = value_range.values.unwrap();
-
     let mut wtr = WriterBuilder::new().from_writer(vec![]);
 
     for row in rows {
-        wtr.write_record(&row)?;
+        if let Err(e) = wtr.write_record(&row) {
+            println!("error writing row- {:?}", e);
+        };
     }
 
     let data = String::from_utf8(wtr.into_inner()?)?;
@@ -190,18 +191,13 @@ pub async fn read_all<T: DeserializeOwned>(
 
     let mut records = vec![];
     for result in rdr.deserialize() {
-        let record: T = result?;
-        records.push(record);
+        match result {
+            Ok(r) => records.push(r),
+            Err(e) => {
+                println!("error deserializing row: {:?}", e);
+            }
+        }
     }
 
     Ok(records)
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
 }
