@@ -2,6 +2,8 @@
 name = "serde_sheets"
 version = "0.1.1"
 edition = "2021"
+description = "Read and write structs directly from google sheets using serde and csv"
+license = "MIT"
 
 [dependencies]
 csv = "1.1"
