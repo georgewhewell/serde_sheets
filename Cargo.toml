@@ -9,10 +9,10 @@ license = "MIT"
 csv = "1.1"
 serde = "1.0"
 serde_json = "1.0"
-google-sheets4 = "*"
-hyper = { version = "*" }
-hyper-rustls = { version = "*", features = ["rustls-native-certs"] }
-yup-oauth2 = "*"
+google-sheets4 = "3.1"
+hyper = { version = "0.14" }
+hyper-rustls = { version = "0.23", features = ["rustls-native-certs"] }
+yup-oauth2 = "6.6"
 thiserror = "1.0"
 
 [dev-dependencies]
