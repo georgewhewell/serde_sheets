@@ -51,10 +51,13 @@ pub async fn get_sheets<P: Into<PathBuf>>(
     } else {
         builder.build().await?
     };
-    let sheets = Sheets::new(
-        hyper::Client::builder().build(hyper_rustls::HttpsConnector::with_native_roots()),
-        auth,
-    );
+    let connector = hyper_rustls::HttpsConnectorBuilder::new()
+        .with_native_roots()
+        .https_only()
+        .enable_http1()
+        .enable_http2()
+        .build();
+    let sheets = Sheets::new(hyper::Client::builder().build(connector), auth);
     Ok(sheets)
 }
 
