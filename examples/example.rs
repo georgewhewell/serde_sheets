@@ -8,6 +8,7 @@ const TAB_NAME: &str = "IntegrationTest";
 struct ExampleObject {
     name: String,
     number_of_foos: u64,
+    number_of_bars: f64,
 }
 
 fn generate_sample_objects(n: u64) -> Vec<ExampleObject> {
@@ -15,6 +16,7 @@ fn generate_sample_objects(n: u64) -> Vec<ExampleObject> {
         .map(|i| ExampleObject {
             name: format!("Object {}", i),
             number_of_foos: i * 10,
+            number_of_bars: i as f64 + 0.5,
         })
         .collect()
 }
